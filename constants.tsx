@@ -11,12 +11,12 @@ export const SKILLS: Skill[] = [
     items: [
       'Installation: Ubuntu, RHEL/Rocky, Debian, partitioning, GRUB, RAID',
       'Config: Networking (IP, DNS, NTP), storage (LVM, ext4/xfs), systemd, kernel tuning',
-      'Users: Account mgmt, sudo, SSH keys, PAM policies',
+      'Users: Account mgmt, sudo, SSH keys, Privileged Access Management (PAM) policies',
       'Packages: apt/dnf, repos, security updates',
       'Security: Firewalls, SELinux/AppArmor, fail2ban, certificates, Lynis',
       'Monitoring: top/htop, iostat, logs (journalctl), alerting',
       'Backup: rsync, tar, restic, test restores',
-      'Troubleshooting: Boot issues, strace, SMART checks, OOM debugging'
+      'Troubleshooting: Boot issues, strace, SMART checks, OOM (Out of Memory) debugging'
     ]
   },
   {

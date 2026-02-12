@@ -51,5 +51,5 @@ echo "🌐 Service available at: http://$SERVICE_IP"
 
 # Optional: Port forward for local testing
 echo "💡 To access locally, run:"
-echo "   kubectl port-forward service/portfolio-service 9090:80 -n $NAMESPACE"
+echo "   kubectl port-forward service/portfolio-service 9090:80 -n $NAMESPACE --address 0.0.0.0"
 echo "   Then visit: http://localhost:9090"

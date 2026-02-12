@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # Run and deploy your AI Studio app
 
 This contains everything you need to run your app locally.
@@ -19,29 +15,56 @@ View your app in AI Studio: https://ai.studio/apps/drive/1tp2QI1CnWQsCLEHcCfDVz6
 3. Run the app:
    `npm run dev`
 
-## Kubernetes Deployment
+## Deploy Locally to Kubernetes (Kind)
 
-**Prerequisites:** Docker, kubectl, kind cluster
+**Prerequisites:**
+- [Docker](https://docs.docker.com/get-docker/)
+- [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 
-1. Deploy to Kubernetes:
+### Option 1: Automated Deployment (Recommended)
+
+1. Make the deployment script executable:
+   ```bash
+   chmod +x deploy.sh
+   ```
+
+2. Run the script:
    ```bash
    ./deploy.sh
    ```
 
-2. Access locally:
-   ```bash
-   kubectl port-forward service/portfolio-service 9090:80 -n portfolio
-   ```
-   Then visit: http://localhost:9090
+   This script automatically:
+   - Checks for the `staging-cluster` Kind cluster
+   - Builds the Docker image with a unique tag
+   - Loads the image into the cluster
+   - Applies all Kubernetes manifests
+   - Waits for rollout to complete
 
-3. Check deployment status:
+### Option 2: Manual Steps
+
+1. **Build the Docker image:**
    ```bash
-   kubectl get pods -n portfolio
-   kubectl get services -n portfolio
+   docker build -t shreeshesh-devops-portfolio:latest .
    ```
 
-The deployment script will:
-- Build the Docker image with a unique timestamp tag
-- Load the image into the kind cluster
-- Apply Kubernetes manifests (namespace, deployment, service)
-- Wait for the deployment to be ready
+2. **Load image into Kind:**
+   ```bash
+   kind load docker-image shreeshesh-devops-portfolio:latest --name staging-cluster
+   ```
+
+3. **Apply Kubernetes manifests:**
+   ```bash
+   # Create namespace
+   kubectl apply -f k8s/namespace.yaml
+
+   # Apply other resources
+   kubectl apply -f k8s/deployment.yaml
+   kubectl apply -f k8s/service.yaml
+   ```
+
+4. **Port Forward to access:**
+   ```bash
+   kubectl port-forward svc/portfolio-service -n portfolio 30001:80
+   ```
+   Visit http://localhost:30001

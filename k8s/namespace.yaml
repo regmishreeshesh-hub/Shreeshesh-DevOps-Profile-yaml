@@ -4,4 +4,4 @@ metadata:
   name: portfolio
   labels:
     name: portfolio
-    environment: production
+    app: shreeshesh-devops-portfolio
