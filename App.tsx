@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import SkillCard from './components/SkillCard';
 import ProjectCard from './components/ProjectCard';
-import { SKILLS, PROJECTS, SOCIAL_LINKS } from './constants';
+import { SKILLS, PROJECTS, SOCIAL_LINKS, RESUME_LINKS } from './constants';
 
 const App: React.FC = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -93,24 +93,40 @@ const App: React.FC = () => {
             </a>
           </div>
 
-          {/* Social Links */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            {SOCIAL_LINKS.map((social, index) => (
-              <a
-                key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group text-sm font-medium"
-              >
-                <span 
-                  className={`transition-transform group-hover:scale-110 group-hover:rotate-5`}
-                  dangerouslySetInnerHTML={{ __html: social.icon }}
-                />
-                <span className="uppercase tracking-wide">{social.name}</span>
-              </a>
-            ))}
-          </div>
+           {/* Social Links */}
+           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+             {SOCIAL_LINKS.map((social, index) => (
+               <a
+                 key={index}
+                 href={social.url}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group text-sm font-medium"
+               >
+                 <span 
+                   className={`transition-transform group-hover:scale-110 group-hover:rotate-5`}
+                   dangerouslySetInnerHTML={{ __html: social.icon }}
+                 />
+                 <span className="uppercase tracking-wide">{social.name}</span>
+               </a>
+             ))}
+           </div>
+
+           {/* Resume Links */}
+           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+             {RESUME_LINKS.map((resume, index) => (
+               <a
+                 key={index}
+                 href={resume.url}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group text-sm font-medium"
+               >
+                 <span className={`text-lg transition-transform group-hover:scale-110 group-hover:rotate-5`}>{resume.icon}</span>
+                 <span className="uppercase tracking-wide">{resume.name}</span>
+               </a>
+             ))}
+           </div>
         </header>
 
 
