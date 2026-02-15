@@ -8,6 +8,22 @@ export interface Skill {
   items: string[];
 }
 
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  githubLink?: string;
+  demoLink?: string;
+}
+
+export interface SocialLink {
+  name: string;
+  url: string;
+  icon: string;
+  color: string;
+}
+
 export interface ContactInfo {
   email: string;
   phone: string;

@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import SkillCard from './components/SkillCard';
-import { SKILLS } from './constants';
+import ProjectCard from './components/ProjectCard';
+import { SKILLS, PROJECTS, SOCIAL_LINKS } from './constants';
 
 const App: React.FC = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -91,10 +92,59 @@ const App: React.FC = () => {
               +977 9704556365
             </a>
           </div>
+
+          {/* Social Links */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            {SOCIAL_LINKS.map((social, index) => (
+              <a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 group text-sm font-medium"
+              >
+                <span className={`text-lg transition-transform group-hover:scale-110 group-hover:rotate-5`}>{social.icon}</span>
+                <span className="uppercase tracking-wide">{social.name}</span>
+              </a>
+            ))}
+          </div>
         </header>
 
+        {/* Projects Section */}
+        <section className="mb-24 animate-in fade-in slide-in-from-bottom-6 duration-1000">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 uppercase">
+              Featured <span className="text-orange-500">Projects</span>
+            </h2>
+            <div className="h-px w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+            <p className="mt-4 text-white/60 text-sm md:text-base max-w-2xl mx-auto">
+              A selection of my recent work demonstrating practical DevOps expertise
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PROJECTS.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
+
         {/* 3x3 MATRIX GRID */}
-        <div className="relative">
+        <div className="relative mb-24">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 uppercase">
+              Technical <span className="text-orange-500">Skills</span>
+            </h2>
+            <div className="h-px w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+            <p className="mt-4 text-white/60 text-sm md:text-base max-w-2xl mx-auto">
+              My expertise in modern DevOps technologies and practices
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 lg:gap-6">
             {SKILLS.map((skill, index) => (
               <SkillCard
