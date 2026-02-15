@@ -25,7 +25,7 @@ export const SKILLS: Skill[] = [
     color: 'from-blue-500 to-indigo-600',
     description: 'Core Linux and system administration expertise.',
     items: [
-      'Installation: Ubuntu, RHEL/Rocky, Debian, partitioning, GRUB, RAID',
+      'Installation: Ubuntu, RHEL/Rocky, Debian, Arch Linux, partitioning, GRUB, RAID',
       'Config: Networking (IP, DNS, NTP), storage (LVM, ext4/xfs), systemd, kernel tuning',
       'Users: Account mgmt, sudo, SSH keys, Privileged Access Management (PAM) policies',
       'Packages: apt/dnf, repos, security updates',
@@ -182,7 +182,7 @@ export const PROJECTS: Project[] = [
     title: 'Highly Available Kubernetes Cluster',
     description: 'Architected and implemented a highly available Kubernetes cluster using kubeadm on AWS EC2 instances.',
     technologies: ['Kubernetes', 'AWS', 'Terraform', 'Calico', 'HAProxy'],
-    githubLink: 'https://github.com/shreeshesh/ha-kubernetes-cluster',
+    githubLink: 'https://github.com/regmishreeshesh-hub/ha-kubernetes-cluster',
     demoLink: 'https://k8s.shreeshesh.com'
   },
   {
@@ -190,7 +190,7 @@ export const PROJECTS: Project[] = [
     title: 'Microservices Application Deployment',
     description: 'Built and deployed a multi-language microservices application with CI/CD pipelines and observability.',
     technologies: ['Node.js', 'Python', 'Docker', 'Kubernetes', 'Prometheus', 'Grafana'],
-    githubLink: 'https://github.com/shreeshesh/microservices-demo',
+    githubLink: 'https://github.com/regmishreeshesh-hub/microservices-demo',
     demoLink: 'https://demo.shreeshesh.com'
   },
   {
@@ -198,7 +198,7 @@ export const PROJECTS: Project[] = [
     title: 'GitOps with ArgoCD',
     description: 'Implemented GitOps workflows using ArgoCD for continuous delivery and deployment.',
     technologies: ['ArgoCD', 'Kubernetes', 'GitHub Actions', 'Helm'],
-    githubLink: 'https://github.com/shreeshesh/gitops-argocd',
+    githubLink: 'https://github.com/regmishreeshesh-hub/gitops-argocd',
     demoLink: 'https://argocd.shreeshesh.com'
   },
   {
@@ -206,7 +206,7 @@ export const PROJECTS: Project[] = [
     title: 'Enterprise Monitoring Stack',
     description: 'Designed and deployed a comprehensive monitoring stack for infrastructure and applications.',
     technologies: ['Prometheus', 'Grafana', 'Loki', 'Alertmanager', 'Node Exporter'],
-    githubLink: 'https://github.com/shreeshesh/monitoring-stack',
+    githubLink: 'https://github.com/regmishreeshesh-hub/monitoring-stack',
     demoLink: 'https://monitoring.shreeshesh.com'
   }
 ];
@@ -214,26 +214,20 @@ export const PROJECTS: Project[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: 'GitHub',
-    url: 'https://github.com/shreeshesh',
-    icon: '🐙',
-    color: 'from-gray-400 to-gray-600'
+    url: 'https://github.com/regmishreeshesh-hub',
+    icon: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>',
+    color: 'from-gray-500 to-gray-700'
   },
   {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/in/shreeshesh',
-    icon: '💼',
-    color: 'from-blue-600 to-blue-800'
+    name: 'Resume (DOCX)',
+    url: 'https://docs.google.com/document/d/1toJdmql6JRBV0Gj80xhro4LOf-gUGLtl/edit?usp=drive_link&ouid=107834041569382404825&rtpof=true&sd=true',
+    icon: '📄',
+    color: 'from-green-500 to-emerald-600'
   },
   {
-    name: 'Twitter',
-    url: 'https://twitter.com/shreeshesh',
-    icon: '🐦',
-    color: 'from-blue-400 to-blue-600'
-  },
-  {
-    name: 'Dev.to',
-    url: 'https://dev.to/shreeshesh',
-    icon: '💻',
-    color: 'from-gray-800 to-gray-900'
+    name: 'Resume (PDF)',
+    url: 'https://drive.google.com/file/d/14KuBd5zaL_I9JNKhd1sSDx5sSrBXeKX0/view?usp=drive_link',
+    icon: '📕',
+    color: 'from-red-500 to-rose-600'
   }
 ];
