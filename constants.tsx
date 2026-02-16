@@ -150,8 +150,6 @@ export const SKILLS: Skill[] = [
       'Ansible for configuration management',
       'Chef/Puppet for legacy systems',
       'Version control for infrastructure with Git',
-      'Atlantis for Terraform pull request automation',
-      'Spacelift for Infrastructure as Code management',
       'Reproducible cloud environments with Packer'
     ]
   },
