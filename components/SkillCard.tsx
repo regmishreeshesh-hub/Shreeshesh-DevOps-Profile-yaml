@@ -41,7 +41,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           </div>
           
           <div className="p-6 flex flex-col items-center justify-center h-full text-center">
-            <div className={`w-24 h-24 rounded-xl mb-4 flex items-center justify-center text-5xl transition-transform group-hover:scale-110 duration-500`}>
+            <div className={`w-36 h-36 rounded-xl mb-4 flex items-center justify-center text-7xl transition-transform group-hover:scale-110 duration-500`}>
               {skill.icon}
             </div>
             <h3 className="text-lg font-black tracking-widest uppercase group-hover:text-orange-400 transition-colors">
