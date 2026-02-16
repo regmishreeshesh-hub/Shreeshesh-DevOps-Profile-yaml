@@ -39,7 +39,7 @@ export const SKILLS: Skill[] = [
     id: 'automation',
     title: 'AUTOMATION & SCRIPTING',
     icon: '⚡',
-    color: 'from-orange-500 to-red-600',
+    color: 'from-green-500 to-lime-600',
     description: 'Streamlining processes with robust scripting and configuration management.',
     items: [
       'Python, Bash, PowerShell for automation',
@@ -56,7 +56,7 @@ export const SKILLS: Skill[] = [
     id: 'containers',
     title: 'CONTAINERIZATION',
     icon: '📦',
-    color: 'from-green-500 to-emerald-600',
+    color: 'from-orange-500 to-yellow-600',
     description: 'Modern application packaging and management with Docker and container tools.',
     items: [
       'Docker: Writing multi-stage Dockerfiles, Docker Compose',
@@ -72,7 +72,7 @@ export const SKILLS: Skill[] = [
     id: 'orchestration',
     title: 'KUBERNETES',
     icon: '☸️',
-    color: 'from-blue-600 to-blue-800',
+    color: 'from-blue-500 to-indigo-600',
     description: 'Scalable container orchestration and management with Kubernetes.',
     items: [
       'Pods, Deployments, Services, Ingress, and Volumes',
@@ -91,7 +91,7 @@ export const SKILLS: Skill[] = [
     id: 'pipelines',
     title: 'CI/CD & GITOPS',
     icon: '🔄',
-    color: 'from-orange-400 to-yellow-600',
+    color: 'from-green-500 to-lime-600',
     description: 'Automating code delivery from commit to production with GitOps workflows.',
     items: [
       'GitHub Actions, GitLab CI/CD, Bitbucket Pipelines for CI/CD',
@@ -109,7 +109,7 @@ export const SKILLS: Skill[] = [
     id: 'cloud',
     title: 'CLOUD PLATFORMS',
     icon: '☁️',
-    color: 'from-cyan-500 to-blue-500',
+    color: 'from-blue-500 to-indigo-600',
     description: 'Multi-cloud infrastructure design and operation with AWS, Azure, and GCP.',
     items: [
       'AWS: EC2/EKS, IAM, VPC, S3, Lambda, Route 53, CloudWatch',
@@ -126,7 +126,7 @@ export const SKILLS: Skill[] = [
     id: 'observability',
     title: 'OBSERVABILITY',
     icon: '📊',
-    color: 'from-purple-500 to-pink-600',
+    color: 'from-blue-500 to-indigo-600 ',
     description: 'Gaining deep insights into system performance with metrics, logging, and tracing.',
     items: [
       'Prometheus + Grafana dashboards for monitoring',
@@ -143,7 +143,7 @@ export const SKILLS: Skill[] = [
     id: 'iac',
     title: 'INFRASTRUCTURE AS CODE',
     icon: '🛠️',
-    color: 'from-indigo-500 to-purple-600',
+    color: 'from-green-500 to-lime-600',
     description: 'Provisioning and managing infrastructure with code using Terraform and friends.',
     items: [
       'Terraform / OpenTofu for cloud provisioning',
@@ -160,7 +160,7 @@ export const SKILLS: Skill[] = [
     id: 'devsecops',
     title: 'DEVSECOPS',
     icon: '🔐',
-    color: 'from-red-500 to-rose-700',
+    color: 'from-blue-500 to-indigo-600',
     description: 'Security shifted left in the development lifecycle with DevSecOps practices.',
     items: [
       'Snyk, Trivy, Aqua for container scanning',
@@ -216,13 +216,13 @@ export const SOCIAL_LINKS: SocialLink[] = [
     name: 'GitHub',
     url: 'https://github.com/regmishreeshesh-hub',
     icon: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>',
-    color: 'from-gray-500 to-gray-700'
+    color: '',
   },
   {
     name: 'LinkedIn',
     url: 'https://linkedin.com/in/shreeshesh-regmi',
     icon: '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>',
-    color: 'from-blue-500 to-blue-700'
+    color: '',
   }
 ];
 
@@ -230,13 +230,13 @@ export const RESUME_LINKS: SocialLink[] = [
   {
     name: 'Resume (DOCX)',
     url: 'https://docs.google.com/document/d/1toJdmql6JRBV0Gj80xhro4LOf-gUGLtl/edit?usp=drive_link&ouid=107834041569382404825&rtpof=true&sd=true',
-    icon: '📄',
-    color: 'from-green-500 to-emerald-600'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>',
+    color: '',
   },
   {
     name: 'Resume (PDF)',
     url: 'https://drive.google.com/file/d/14KuBd5zaL_I9JNKhd1sSDx5sSrBXeKX0/view?usp=drive_link',
-    icon: '📕',
-    color: 'from-red-500 to-rose-600'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>',
+    color: '',
   }
 ];
