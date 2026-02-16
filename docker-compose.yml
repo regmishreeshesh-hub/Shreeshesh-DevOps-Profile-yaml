@@ -1,8 +1,7 @@
 version: '3.8'
 
 services:
-  # Main application service
-  app:
+  portfolio:
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,29 +9,27 @@ services:
       - "3000:80"
     environment:
       - NODE_ENV=production
-    networks:
-      - app-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s
 
-  
-  # Nginx reverse proxy (for testing load balancing)
-  nginx-proxy:
+  # Optional: Add nginx reverse proxy for testing
+  nginx:
     image: nginx:alpine
     ports:
       - "8080:80"
     volumes:
-      - ./nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      - app
-    networks:
-      - app-network
+      - portfolio
     restart: unless-stopped
+    profiles:
+      - with-proxy
 
 networks:
-  app-network:
-    driver: bridge
+  default:
+    name: portfolio-network
