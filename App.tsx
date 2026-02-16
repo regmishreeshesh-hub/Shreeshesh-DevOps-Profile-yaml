@@ -208,7 +208,7 @@ const App: React.FC = () => {
             <span className="hover:text-white transition-colors cursor-pointer">SYSTEM_INFO</span>
             <span className="hover:text-white transition-colors cursor-pointer">DEPLOY_STATUS</span>
           </div>
-          <div className="drop-shadow-[0_0_8px_rgba(251,146,60,0.5)] text-orange-400">
+          <div className="drop-shadow-[0_0_12px_rgba(251,146,60,0.8)] text-orange-400">
             © {new Date().getFullYear()} Shreeshesh Regmi • Built for Modern DevOps Landscapes
           </div>
         </footer>

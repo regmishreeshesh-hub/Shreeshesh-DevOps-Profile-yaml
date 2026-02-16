@@ -52,16 +52,16 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           
           <div className="p-6 flex flex-col items-center justify-center h-full text-center">
             <div className={`w-32 h-32 mb-4 flex items-center justify-center text-6xl transition-all duration-500 group-hover:scale-125 group-hover:rotate-5 ${
-              coord === '[0,0]' ? 'text-orange-400 drop-shadow-[0_0_15px_rgba(251,146,60,0.5)]' : 
-              coord === '[0,1]' ? 'text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 
-              coord === '[0,2]' ? 'text-green-400 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 
-              coord === '[1,0]' ? 'text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]' : 
-              coord === '[1,1]' ? 'text-red-400 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]' : 
-              coord === '[1,2]' ? 'text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]' : 
-              coord === '[2,0]' ? 'text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]' : 
-              coord === '[2,1]' ? 'text-pink-400 drop-shadow-[0_0_15px_rgba(244,114,182,0.5)]' : 
-              coord === '[2,2]' ? 'text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.5)]' : 
-              'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]'
+              coord === '[0,0]' ? 'text-orange-400' : 
+              coord === '[0,1]' ? 'text-blue-400' : 
+              coord === '[0,2]' ? 'text-green-400' : 
+              coord === '[1,0]' ? 'text-purple-400' : 
+              coord === '[1,1]' ? 'text-red-400' : 
+              coord === '[1,2]' ? 'text-yellow-400' : 
+              coord === '[2,0]' ? 'text-cyan-400' : 
+              coord === '[2,1]' ? 'text-pink-400' : 
+              coord === '[2,2]' ? 'text-indigo-400' : 
+              'text-white'
             }`}>
               {skill.icon}
             </div>
@@ -136,16 +136,16 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
             <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10">
               <div className="flex items-center gap-3">
                 <div className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl
-                  ${coord === '[0,0]' ? 'text-orange-400 drop-shadow-[0_0_15px_rgba(251,146,60,0.6)]' : 
-                    coord === '[0,1]' ? 'text-blue-400 drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]' : 
-                    coord === '[0,2]' ? 'text-green-400 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]' : 
-                    coord === '[1,0]' ? 'text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]' : 
-                    coord === '[1,1]' ? 'text-red-400 drop-shadow-[0_0_15px_rgba(239,68,68,0.6)]' : 
-                    coord === '[1,2]' ? 'text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 
-                    coord === '[2,0]' ? 'text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]' : 
-                    coord === '[2,1]' ? 'text-pink-400 drop-shadow-[0_0_15px_rgba(244,114,182,0.6)]' : 
-                    coord === '[2,2]' ? 'text-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.6)]' : 
-                    'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]'}`}>
+                  ${coord === '[0,0]' ? 'text-orange-400' : 
+                    coord === '[0,1]' ? 'text-blue-400' : 
+                    coord === '[0,2]' ? 'text-green-400' : 
+                    coord === '[1,0]' ? 'text-purple-400' : 
+                    coord === '[1,1]' ? 'text-red-400' : 
+                    coord === '[1,2]' ? 'text-yellow-400' : 
+                    coord === '[2,0]' ? 'text-cyan-400' : 
+                    coord === '[2,1]' ? 'text-pink-400' : 
+                    coord === '[2,2]' ? 'text-indigo-400' : 
+                    'text-white'}`}>
                   {skill.icon}
                 </div>
                 <div>
