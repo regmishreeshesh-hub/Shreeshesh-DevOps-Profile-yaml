@@ -44,7 +44,6 @@ export const SKILLS: Skill[] = [
       'Python, Bash, PowerShell for automation',
       'Ansible playbooks for configuration management',
       'API interactions with Python requests and GraphQL',
-      'Custom CLI tooling development with Click/Argparse',
       'System health check automation with cron/systemd',
       'Infrastructure automation with Terraform/Pulumi',
       'CI/CD pipeline automation with GitHub Actions/GitLab CI',
