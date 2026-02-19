@@ -20,7 +20,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'foundations',
     title: 'FOUNDATIONS',
-    icon: '🏗️',
+    icon: '<img src="/linux.png" alt="Linux" class="w-32 h-32" />',
     color: '',
     description: 'Core Linux and system administration expertise.',
     items: [
@@ -37,7 +37,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'automation',
     title: 'AUTOMATION & SCRIPTING',
-    icon: '⚡',
+    icon: '<img src="/bash.png" alt="automation" className="w-8 h-8" />',
     color: '',
     description: 'Streamlining processes with robust scripting and configuration management.',
     items: [
@@ -54,7 +54,8 @@ export const SKILLS: Skill[] = [
   {
     id: 'containers',
     title: 'CONTAINERIZATION',
-    icon: '📦',
+    icon: '<img src="/docker.png" alt="containerization" className="w-8 h-8" />',
+
     color: '',
     description: 'Modern application packaging and management with Docker and container tools.',
     items: [
@@ -70,7 +71,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'orchestration',
     title: 'KUBERNETES',
-    icon: '☸️',
+    icon: '<img src="/kubernetes.png" alt="kubernetes" className="w-8 h-8" />',
     color: '',
     description: 'Scalable container orchestration and management with Kubernetes.',
     items: [
@@ -89,7 +90,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'pipelines',
     title: 'CI/CD & GITOPS',
-    icon: '🔄',
+    icon: '<img src="/git.png" alt="gitops" className="w-8 h-8" />',
     color: '',
     description: 'Automating code delivery from commit to production with GitOps workflows.',
     items: [
@@ -107,7 +108,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'cloud',
     title: 'CLOUD PLATFORMS',
-    icon: '☁️',
+    icon: '<img src="/gcp.png" alt="cloud" className="w-8 h-8" />',
     color: '',
     description: 'Multi-cloud infrastructure design and operation with AWS, Azure, and GCP.',
     items: [
@@ -124,7 +125,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'observability',
     title: 'OBSERVABILITY',
-    icon: '📊',
+    icon: '<img src="/grafana.png" alt="observability" className="w-8 h-8" />',
     color: '',
     description: 'Gaining deep insights into system performance with metrics, logging, and tracing.',
     items: [
@@ -141,7 +142,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'iac',
     title: 'INFRASTRUCTURE AS CODE',
-    icon: '🛠️',
+    icon: '<img src="/terraform.png" alt="iac" className="w-8 h-8" />',
     color: '',
     description: 'Provisioning and managing infrastructure with code using Terraform and friends.',
     items: [
@@ -156,7 +157,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'devsecops',
     title: 'DEVSECOPS',
-    icon: '🔐',
+    icon: '<img src="/snyk.png" alt="devsecops" className="w-8 h-8" />',
     color: '',
     description: 'Security shifted left in the development lifecycle with DevSecOps practices.',
     items: [

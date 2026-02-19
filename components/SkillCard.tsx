@@ -14,6 +14,47 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
   const col = index % 3;
   const coord = `[${row},${col}]`;
 
+  // Color mappings based on coordinate
+  const colorMap: Record<string, string> = {
+    '[0,0]': 'text-orange-400',
+    '[0,1]': 'text-blue-400',
+    '[0,2]': 'text-green-400',
+    '[1,0]': 'text-purple-400',
+    '[1,1]': 'text-red-400',
+    '[1,2]': 'text-yellow-400',
+    '[2,0]': 'text-cyan-400',
+    '[2,1]': 'text-pink-400',
+    '[2,2]': 'text-indigo-400',
+  };
+
+  const glowMap: Record<string, string> = {
+    '[0,0]': 'drop-shadow-[0_0_10px_rgba(251,146,60,0.8)]',
+    '[0,1]': 'drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]',
+    '[0,2]': 'drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]',
+    '[1,0]': 'drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]',
+    '[1,1]': 'drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]',
+    '[1,2]': 'drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]',
+    '[2,0]': 'drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]',
+    '[2,1]': 'drop-shadow-[0_0_10px_rgba(244,114,182,0.8)]',
+    '[2,2]': 'drop-shadow-[0_0_10px_rgba(129,140,248,0.8)]',
+  };
+
+  const gradientMap: Record<string, string> = {
+    '[0,0]': 'from-orange-400/15',
+    '[0,1]': 'from-blue-400/15',
+    '[0,2]': 'from-green-400/15',
+    '[1,0]': 'from-purple-400/15',
+    '[1,1]': 'from-red-400/15',
+    '[1,2]': 'from-yellow-400/15',
+    '[2,0]': 'from-cyan-400/15',
+    '[2,1]': 'from-pink-400/15',
+    '[2,2]': 'from-indigo-400/15',
+  };
+
+  const activeColor = colorMap[coord] || 'text-white';
+  const activeGlow = glowMap[coord] || 'drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]';
+  const activeGradient = gradientMap[coord] || 'from-white/10';
+
   return (
     <>
       {/* Base Matrix Cell */}
@@ -26,22 +67,15 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
         <div className="absolute inset-0 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm group-hover:bg-white/10 group-hover:border-white/20 transition-all matrix-cell overflow-hidden">
           {/* Matrix Coordinate Indicator */}
           <div className={`absolute top-4 right-4 font-mono-code text-xs transition-all transform group-hover:scale-110
-            ${coord === '[0,0]' ? 'text-orange-400 font-bold drop-shadow-[0_0_10px_rgba(251,146,60,0.8)]' : 
-              coord === '[0,1]' ? 'text-blue-400 font-bold drop-shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 
-              coord === '[0,2]' ? 'text-green-400 font-bold drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]' : 
-              coord === '[1,0]' ? 'text-purple-400 font-bold drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]' : 
-              coord === '[1,1]' ? 'text-red-400 font-bold drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 
-              coord === '[1,2]' ? 'text-yellow-400 font-bold drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]' : 
-              coord === '[2,0]' ? 'text-cyan-400 font-bold drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]' : 
-              coord === '[2,1]' ? 'text-pink-400 font-bold drop-shadow-[0_0_10px_rgba(244,114,182,0.8)]' : 
-              coord === '[2,2]' ? 'text-indigo-400 font-bold drop-shadow-[0_0_10px_rgba(129,140,248,0.8)]' : 
-              'text-white/30 group-hover:text-white/50'}`}>
+            ${activeColor} font-bold ${activeGlow}`}>
             {coord}
           </div>
-          
+
           <div className="p-6 flex flex-col items-center justify-center h-full text-center">
-            <div className={`w-36 h-36 rounded-xl mb-4 flex items-center justify-center text-7xl transition-transform group-hover:scale-110 duration-500`}>
-              {skill.icon}
+            <div
+              className={`w-36 h-36 rounded-xl mb-4 flex items-center justify-center text-7xl transition-transform group-hover:scale-110 duration-500 ${activeColor}`}
+            >
+              <span dangerouslySetInnerHTML={{ __html: skill.icon }}></span>
             </div>
             <h3 className="text-lg font-black tracking-widest uppercase group-hover:text-orange-400 transition-colors">
               {skill.title}
@@ -50,17 +84,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           </div>
 
           {/* Subtle hover background effect */}
-          <div className={`absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-br transition-all duration-700 transform group-hover:scale-110 opacity-0 group-hover:opacity-30 blur-3xl
-            ${coord === '[0,0]' ? 'from-orange-400/15 to-transparent' : 
-              coord === '[0,1]' ? 'from-blue-400/15 to-transparent' : 
-              coord === '[0,2]' ? 'from-green-400/15 to-transparent' : 
-              coord === '[1,0]' ? 'from-purple-400/15 to-transparent' : 
-              coord === '[1,1]' ? 'from-red-400/15 to-transparent' : 
-              coord === '[1,2]' ? 'from-yellow-400/15 to-transparent' : 
-              coord === '[2,0]' ? 'from-cyan-400/15 to-transparent' : 
-              coord === '[2,1]' ? 'from-pink-400/15 to-transparent' : 
-              coord === '[2,2]' ? 'from-indigo-400/15 to-transparent' : 
-              'from-orange-400/10 to-transparent'}`} 
+          <div className={`absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-br ${activeGradient} to-transparent transition-all duration-700 transform group-hover:scale-110 opacity-0 group-hover:opacity-30 blur-3xl`}
           />
         </div>
       </div>
@@ -73,27 +97,19 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
         >
           {/* Dark Backdrop */}
           <div className="absolute inset-0 bg-[#060918]/90 backdrop-blur-md" />
-          
+
           {/* Expanded Content Box */}
-          <div 
+          <div
             className="relative w-full max-w-4xl max-h-[85vh] bg-[#0d1117] border border-white/20 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header / Title Bar */}
             <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl
-                  ${coord === '[0,0]' ? 'text-orange-400' : 
-                    coord === '[0,1]' ? 'text-blue-400' : 
-                    coord === '[0,2]' ? 'text-green-400' : 
-                    coord === '[1,0]' ? 'text-purple-400' : 
-                    coord === '[1,1]' ? 'text-red-400' : 
-                    coord === '[1,2]' ? 'text-yellow-400' : 
-                    coord === '[2,0]' ? 'text-cyan-400' : 
-                    coord === '[2,1]' ? 'text-pink-400' : 
-                    coord === '[2,2]' ? 'text-indigo-400' : 
-                    'text-white'}`}>
-                  {skill.icon}
+                <div
+                  className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl text-white`}
+                >
+                  <span dangerouslySetInnerHTML={{ __html: skill.icon }}></span>
                 </div>
                 <div>
                   <h2 className="text-xl font-bold tracking-tight">{skill.title}</h2>
