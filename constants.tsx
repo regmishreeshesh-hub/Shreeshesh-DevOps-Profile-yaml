@@ -20,7 +20,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'foundations',
     title: 'FOUNDATIONS',
-    icon: '<img src="/linux.png" alt="Linux" class="w-32 h-32" />',
+    icon: '<img src="/linux.png" alt="Linux" className="w-8 h-8" />',
     color: '',
     description: 'Core Linux and system administration expertise.',
     items: [
