@@ -1,0 +1,9 @@
+# Kubernetes Deployment Automator Dependencies
+# No external dependencies required - uses only Python standard library
+# The script is designed to work with Python 3.7+ without additional packages
+
+# Optional: For enhanced functionality, you might want to install:
+# requests>=2.25.1  # For enhanced GitHub API interactions
+# pyyaml>=6.0       # For YAML manifest output instead of JSON
+# colorama>=0.4.4   # For colored terminal output
+# tqdm>=4.62.0       # For progress bars

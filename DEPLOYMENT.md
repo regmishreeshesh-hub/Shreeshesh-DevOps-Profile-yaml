@@ -181,6 +181,97 @@ jobs:
           # Deployment commands here
 ```
 
+## Automated Kubernetes Deployment
+
+### Python Deployment Automator
+
+For automated deployment of GitHub repositories to Kubernetes clusters, use the included `k8s-deploy.py` script.
+
+**Features:**
+- 🔄 **Interactive Mode**: Guided deployment with prompts
+- 🚀 **Command Line Mode**: Direct parameter passing
+- 📦 **Repository Analysis**: Auto-detects Dockerfile, docker-compose.yml, nginx.conf, .env files
+- 📝 **Manifest Generation**: Creates K8s Deployments, Services, ConfigMaps, Secrets, PVCs
+- 🏗️ **Multi-Cluster Support**: Kind, Minikube, K3d compatibility
+- 🔐 **Private Repo Support**: GitHub token authentication
+- 🌿 **Branch Selection**: Choose any available branch
+- 💾 **Smart Defaults**: Sensible defaults for missing configurations
+
+**Quick Start:**
+
+```bash
+# Setup the deployment tool
+./setup.sh
+
+# Interactive deployment
+./k8s-deploy.py
+
+# Command line deployment
+./k8s-deploy.py --repo https://github.com/user/repo.git --branch main --cluster kind
+
+# Private repository with token
+./k8s-deploy.py --repo https://github.com/user/private-repo.git --token YOUR_TOKEN --cluster minikube
+```
+
+**Detected Files and Generated Manifests:**
+
+| Detected File | Generated Manifest | Description |
+|-------------|------------------|-------------|
+| `Dockerfile` | `repo-deployment.yaml` | Main application deployment |
+| `docker-compose.yml` | `repo-service.yaml` | Service configuration |
+| `.env` | `repo-configmap.yaml` | Environment variables |
+| `.env` | `repo-secret.yaml` | Encrypted secrets |
+| `init.sql` | `repo-db-init.yaml` | Database initialization |
+| Database files | `repo-pvc.yaml` | Storage volume |
+
+**Manifest Naming Convention:**
+- `{repo-name}-deployment.yaml` - Application deployment
+- `{repo-name}-service.yaml` - Service configuration
+- `{repo-name}-configmap.yaml` - Environment variables
+- `{repo-name}-secret.yaml` - Sensitive data
+- `{repo-name}-pvc.yaml` - Persistent storage
+- `{repo-name}-db-init.yaml` - Database initialization
+
+**Cluster Requirements:**
+- **Kind**: `kind create cluster`
+- **Minikube**: `minikube start`
+- **K3d**: `k3d cluster create`
+
+**Example Workflow:**
+
+```bash
+# 1. Start your cluster
+kind create cluster
+
+# 2. Run the deployment tool
+./k8s-deploy.py
+
+# 3. Follow prompts:
+#    - Enter GitHub URL
+#    - Select branch
+#    - Choose cluster type
+#    - Confirm deployment
+
+# 4. Access your application
+kubectl get svc -n repo-name
+```
+
+**Advanced Usage:**
+
+```bash
+# Deploy with custom namespace
+./k8s-deploy.py --repo https://github.com/user/repo.git --namespace custom-ns
+
+# Skip confirmation prompts
+./k8s-deploy.py --repo URL --auto-confirm
+
+# Generate manifests only (no deployment)
+./k8s-deploy.py --repo URL --generate-only
+
+# Use custom Docker image
+./k8s-deploy.py --repo URL --image custom:tag
+```
+
 ## Troubleshooting
 
 ### Common Issues
