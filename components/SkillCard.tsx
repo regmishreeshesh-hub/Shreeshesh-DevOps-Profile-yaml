@@ -64,7 +64,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           ${isExpanded ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100'}
         `}
       >
-        <div className="absolute inset-0 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm group-hover:bg-white/10 group-hover:border-white/20 transition-all matrix-cell overflow-hidden">
+        <div className="absolute inset-0 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all matrix-cell overflow-hidden">
           {/* Matrix Coordinate Indicator */}
           <div className={`absolute top-4 right-4 font-mono-code text-xs transition-all transform group-hover:scale-110
             ${activeColor} font-bold ${activeGlow}`}>
@@ -77,10 +77,10 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
             >
               <span dangerouslySetInnerHTML={{ __html: skill.icon }}></span>
             </div>
-            <h3 className="text-lg font-black tracking-widest uppercase group-hover:text-orange-400 transition-colors">
+            <h3 className="text-lg font-black tracking-widest uppercase text-gray-900 dark:text-white group-hover:text-orange-400 transition-colors">
               {skill.title}
             </h3>
-            <div className="mt-4 w-8 h-1 bg-white/10 group-hover:w-16 group-hover:bg-orange-500/50 transition-all duration-500 rounded-full" />
+            <div className="mt-4 w-8 h-1 bg-gray-300 dark:bg-white/10 group-hover:w-16 group-hover:bg-orange-500/50 transition-all duration-500 rounded-full" />
           </div>
 
           {/* Subtle hover background effect */}
@@ -96,29 +96,29 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           onClick={onClick}
         >
           {/* Dark Backdrop */}
-          <div className="absolute inset-0 bg-[#060918]/90 backdrop-blur-md" />
+          <div className="absolute inset-0 bg-gray-100/90 dark:bg-[#060918]/90 backdrop-blur-md" />
 
           {/* Expanded Content Box */}
           <div
-            className="relative w-full max-w-4xl max-h-[85vh] bg-[#0d1117] border border-white/20 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col"
+            className="relative w-full max-w-4xl max-h-[85vh] bg-white dark:bg-[#0d1117] border border-gray-200 dark:border-white/20 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header / Title Bar */}
-            <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10">
+            <div className="flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl text-white`}
+                  className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl text-gray-900 dark:text-white`}
                 >
                   <span dangerouslySetInnerHTML={{ __html: skill.icon }}></span>
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight">{skill.title}</h2>
-                  <p className="text-xs text-white/40 font-mono-code uppercase">{coord} NODE_DETAILS</p>
+                  <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">{skill.title}</h2>
+                  <p className="text-xs text-gray-500 dark:text-white/40 font-mono-code uppercase">{coord} NODE_DETAILS</p>
                 </div>
               </div>
               <button
                 onClick={onClick}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/60 hover:text-white"
+                className="p-2 hover:bg-gray-200 dark:hover:bg-white/10 rounded-full transition-colors text-gray-600 dark:text-white/60 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -136,7 +136,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
                 <span className="pl-4 yaml-key">namespace</span><span className="yaml-punct">:</span> <span className="yaml-string">portfolio-shreeshesh</span><br />
                 <span className="yaml-key">data</span><span className="yaml-punct">:</span><br />
                 <span className="pl-4 yaml-key">summary</span><span className="yaml-punct">:</span> <span className="yaml-punct">|</span><br />
-                <span className="pl-8 text-white/70 italic">"{skill.description}"</span><br />
+                <span className="pl-8 text-gray-600 dark:text-white/70 italic">"{skill.description}"</span><br />
                 <span className="pl-4 yaml-key">capabilities</span><span className="yaml-punct">:</span><br />
               </div>
 
@@ -144,14 +144,14 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
                 {skill.items.map((item, idx) => (
                   <div key={idx} className="flex gap-4 group/line">
                     <span className="yaml-punct shrink-0 text-orange-500">-</span>
-                    <span className="text-white/90 group-hover/line:text-white transition-colors">
+                    <span className="text-gray-700 dark:text-white/90 group-hover/line:text-gray-900 dark:group-hover/line:text-white transition-colors">
                       {item}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-12 pt-8 border-t border-white/5 text-white/20 text-xs text-center">
+              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/5 text-gray-400 dark:text-white/20 text-xs text-center">
                 --- END OF SPEC ---
               </div>
             </div>

@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light mode (default) */
+body {
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+/* Dark mode */
+html.dark body {
+  background-color: #060918;
+  color: white;
+}
+
+.font-mono-code {
+  font-family: 'Fira Code', monospace;
+}
+
+.custom-glow {
+  text-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+}
+
+.matrix-bg {
+  background-image: radial-gradient(circle at 2px 2px, rgba(0,0,0,0.05) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+html.dark .matrix-bg {
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+}
+
+@keyframes grid-pulse-light {
+  0%, 100% { border-color: rgba(0,0,0,0.1); }
+  50% { border-color: rgba(0,0,0,0.2); }
+}
+
+@keyframes grid-pulse-dark {
+  0%, 100% { border-color: rgba(255,255,255,0.1); }
+  50% { border-color: rgba(255,255,255,0.2); }
+}
+
+.matrix-cell {
+  animation: grid-pulse-light 4s infinite ease-in-out;
+}
+
+html.dark .matrix-cell {
+  animation: grid-pulse-dark 4s infinite ease-in-out;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.yaml-key { color: #f97316; }
+.yaml-string { color: #10b981; }
+.yaml-punct { color: #94a3b8; }
