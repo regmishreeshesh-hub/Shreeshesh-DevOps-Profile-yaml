@@ -31,12 +31,24 @@ class K8sDeployer:
         self.branch = "main"
         self.github_token = ""
         self.repo_name = ""
+        self.namespace = ""  # Kubernetes namespace (sanitized repo name)
         self.output_dir = ""
         self.cluster_type = ""
         self.config_files = {}
         self.dockerfile_paths = []  # Support multiple Dockerfiles
         self.exposed_ports = []
         self.image_tags = []  # Support multiple image tags
+        self.pvc_size = "1Gi"  # Default PVC size
+    
+    def sanitize_namespace_name(self, name: str) -> str:
+        """Convert repository name to valid Kubernetes namespace name"""
+        # Lowercase and replace underscores with hyphens
+        sanitized = name.lower().replace('_', '-')
+        # Remove any characters that aren't alphanumeric or hyphens
+        sanitized = ''.join(c for c in sanitized if c.isalnum() or c == '-')
+        # Remove leading/trailing hyphens
+        sanitized = sanitized.strip('-')
+        return sanitized or 'default-namespace'
         
     def get_user_input(self) -> bool:
         """Get user input for repository and deployment options"""
@@ -51,6 +63,7 @@ class K8sDeployer:
             if repo_input and ('github.com' in repo_input):
                 self.repo_url = repo_input
                 self.repo_name = repo_input.split('/')[-1].replace('.git', '')
+                self.namespace = self.sanitize_namespace_name(self.repo_name)
             else:
                 print("❌ Invalid GitHub URL. Please enter a valid GitHub repository URL.")
         
@@ -112,10 +125,10 @@ class K8sDeployer:
         """Clone the GitHub repository"""
         print(f"\n📥 Cloning repository '{self.repo_name}' from branch '{self.branch}'...")
         
-        # Create output directory and timestamp
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        # Create output directory and timestamp (format: YYYYMMDD-HHMMSS)
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         self.output_dir = f"/tmp/repo-deploy-{timestamp}/{self.repo_name}"
-        self.image_tag = f"{timestamp}"  # Set image tag based on timestamp
+        self.image_tag = timestamp  # Set image tag based on timestamp
         os.makedirs(self.output_dir, exist_ok=True)
         
         try:
@@ -141,7 +154,7 @@ class K8sDeployer:
         config_patterns = {
             'dockerfile': ['Dockerfile', 'Dockerfile.*'],
             'docker_compose': ['docker-compose.yml', 'docker-compose.yaml', 'compose.yml', 'compose.yaml'],
-            'nginx_conf': ['nginx.conf', 'nginx.conf.*'],
+            'nginx_conf': ['nginx.conf', 'nginx.conf.*', 'nginx-proxy.conf'],
             'env_file': ['.env', '.env.*', 'environment', 'config'],
             'init_sql': ['init.sql', 'database.sql', 'schema.sql', 'seed.sql']
         }
@@ -155,8 +168,9 @@ class K8sDeployer:
                 self.config_files[config_type] = [str(f) for f in found_files]
                 print(f"  📄 Found {config_type}: {found_files}")
         
-        # Analyze Dockerfile for exposed ports
+        # Store Dockerfile paths for later use
         if 'dockerfile' in self.config_files:
+            self.dockerfile_paths = self.config_files['dockerfile']
             self.analyze_dockerfile()
     
     def analyze_dockerfile(self):
@@ -222,6 +236,9 @@ class K8sDeployer:
         k8s_dir = os.path.join(self.output_dir, 'k8s-manifests')
         os.makedirs(k8s_dir, exist_ok=True)
         
+        # Generate Namespace manifest first
+        self.generate_namespace_manifest(k8s_dir)
+        
         # Generate Deployment manifests for each Dockerfile
         for i, image_info in enumerate(self.image_tags):
             self.generate_single_deployment_manifest(k8s_dir, image_info, i)
@@ -245,8 +262,31 @@ class K8sDeployer:
         if 'init_sql' in self.config_files:
             self.generate_db_init_manifest(k8s_dir)
         
+        # Process nginx.conf if found
+        if 'nginx_conf' in self.config_files:
+            self.process_nginx_config(k8s_dir)
+        
         print(f"✅ Kubernetes manifests generated in {k8s_dir}")
         return k8s_dir
+    
+    def generate_namespace_manifest(self, k8s_dir: str):
+        """Generate Namespace manifest"""
+        manifest = {
+            'apiVersion': 'v1',
+            'kind': 'Namespace',
+            'metadata': {
+                'name': self.namespace,
+                'labels': {
+                    'name': self.namespace,
+                    'app': self.repo_name
+                }
+            }
+        }
+        
+        manifest_path = os.path.join(k8s_dir, f'{self.repo_name}-namespace.yaml')
+        with open(manifest_path, 'w') as f:
+            json.dump(manifest, f, indent=2)
+        print(f"  📄 Generated: {manifest_path}")
     
     def generate_single_deployment_manifest(self, k8s_dir: str, image_info: dict, index: int):
         """Generate a single Deployment manifest"""
@@ -254,10 +294,10 @@ class K8sDeployer:
             'apiVersion': 'apps/v1',
             'kind': 'Deployment',
             'metadata': {
-                'name': f"{image_info['name']}-deployment",
-                'namespace': self.repo_name,
+                'name': f"{self.repo_name}-deployment",
+                'namespace': self.namespace,
                 'labels': {
-                    'app': image_info['name'],
+                    'app': self.repo_name,
                     'version': 'v1',
                     'build-timestamp': image_info['tag'],
                     'dockerfile': image_info['dockerfile']
@@ -267,21 +307,21 @@ class K8sDeployer:
                 'replicas': 3,
                 'selector': {
                     'matchLabels': {
-                        'app': image_info['name']
+                        'app': self.repo_name
                     }
                 },
                 'template': {
                     'metadata': {
                         'labels': {
-                            'app': image_info['name'],
+                            'app': self.repo_name,
                             'build-timestamp': image_info['tag'],
                             'dockerfile': image_info['dockerfile']
                         }
                     },
                     'spec': {
                         'containers': [{
-                            'name': image_info['name'],
-                            'image': f"{image_info['name']}:{image_info['tag']}",
+                            'name': self.repo_name,
+                            'image': f"{self.repo_name}:{image_info['tag']}",
                             'ports': [{'containerPort': port} for port in image_info['ports']],
                             'env': [
                                 {'name': 'NODE_ENV', 'value': 'production'},
@@ -304,7 +344,7 @@ class K8sDeployer:
             }
         }
         
-        manifest_path = os.path.join(k8s_dir, f"{image_info['name']}-deployment.yaml")
+        manifest_path = os.path.join(k8s_dir, f"{self.repo_name}-deployment.yaml")
         with open(manifest_path, 'w') as f:
             json.dump(manifest, f, indent=2)
         print(f"  📄 Generated: {manifest_path}")
@@ -319,7 +359,7 @@ class K8sDeployer:
                 'kind': 'Service',
                 'metadata': {
                     'name': f"{self.repo_name}-service",
-                    'namespace': self.repo_name,
+                    'namespace': self.namespace,
                     'labels': {
                         'app': self.repo_name,
                         'primary-service': 'true'
@@ -342,37 +382,6 @@ class K8sDeployer:
             with open(manifest_path, 'w') as f:
                 json.dump(manifest, f, indent=2)
             print(f"  📄 Generated: {manifest_path}")
-            
-            # Create additional services for other images if needed
-            for i, image_info in enumerate(self.image_tags[1:], 1):
-                service_manifest = {
-                    'apiVersion': 'v1',
-                    'kind': 'Service',
-                    'metadata': {
-                        'name': f"{image_info['name']}-service",
-                        'namespace': self.repo_name,
-                        'labels': {
-                            'app': image_info['name'],
-                            'secondary-service': 'true'
-                        }
-                    },
-                    'spec': {
-                        'selector': {
-                            'app': image_info['name']
-                        },
-                        'ports': [{
-                            'port': 8080 + i,  # Use different ports for additional services
-                            'targetPort': image_info['ports'][0] if image_info['ports'] else 3000,
-                            'protocol': 'TCP'
-                        }],
-                        'type': 'LoadBalancer'
-                    }
-                }
-                
-                manifest_path = os.path.join(k8s_dir, f"{image_info['name']}-service.yaml")
-                with open(manifest_path, 'w') as f:
-                    json.dump(service_manifest, f, indent=2)
-                print(f"  📄 Generated: {manifest_path}")
     
     def generate_service_manifest(self, k8s_dir: str):
         """Generate Service manifest"""
@@ -384,7 +393,7 @@ class K8sDeployer:
             'kind': 'Service',
             'metadata': {
                 'name': f'{self.repo_name}-service',
-                'namespace': self.repo_name,
+                'namespace': self.namespace,
                 'labels': {
                     'app': self.repo_name
                 }
@@ -427,7 +436,7 @@ class K8sDeployer:
             'kind': 'ConfigMap',
             'metadata': {
                 'name': f'{self.repo_name}-config',
-                'namespace': self.repo_name
+                'namespace': self.namespace
             },
             'data': config_data
         }
@@ -444,7 +453,7 @@ class K8sDeployer:
             'kind': 'Secret',
             'metadata': {
                 'name': f'{self.repo_name}-secret',
-                'namespace': self.repo_name
+                'namespace': self.namespace
             },
             'type': 'Opaque',
             'data': {}  # Users should populate this manually
@@ -458,15 +467,15 @@ class K8sDeployer:
     def generate_pvc_manifest(self, k8s_dir: str):
         """Generate PersistentVolumeClaim manifest"""
         # Get storage size from user
-        default_size = "1Gi"
-        storage_size = input(f"💾 Enter PVC storage size (default: {default_size}): ").strip() or default_size
+        storage_size = input(f"💾 Enter PVC storage size (default: {self.pvc_size}): ").strip() or self.pvc_size
+        self.pvc_size = storage_size
         
         manifest = {
             'apiVersion': 'v1',
             'kind': 'PersistentVolumeClaim',
             'metadata': {
                 'name': f'{self.repo_name}-pvc',
-                'namespace': self.repo_name
+                'namespace': self.namespace
             },
             'spec': {
                 'accessModes': ['ReadWriteOnce'],
@@ -502,7 +511,7 @@ class K8sDeployer:
             'kind': 'ConfigMap',
             'metadata': {
                 'name': f'{self.repo_name}-db-init',
-                'namespace': self.repo_name
+                'namespace': self.namespace
             },
             'data': {
                 'init.sql': encoded_sql
@@ -513,6 +522,52 @@ class K8sDeployer:
         with open(manifest_path, 'w') as f:
             f.write(json.dumps(manifest, indent=2))
         print(f"  📄 Generated: {manifest_path}")
+    
+    def process_nginx_config(self, k8s_dir: str):
+        """Process nginx.conf to update service references for Kubernetes"""
+        nginx_file = self.config_files['nginx_conf'][0]
+        
+        try:
+            with open(nginx_file, 'r') as f:
+                nginx_content = f.read()
+            
+            # Update service references to match Kubernetes service names
+            # Common patterns: proxy_pass http://service_name:port
+            import re
+            
+            # Replace service references with Kubernetes service names
+            # Format: service_name -> repo-name-service
+            service_pattern = r'proxy_pass\s+http://([^:]+):(\d+)'
+            
+            def replace_service_ref(match):
+                original_service = match.group(1)
+                port = match.group(2)
+                # Convert to Kubernetes service name format
+                k8s_service_name = f"{self.repo_name}-service"
+                return f"proxy_pass http://{k8s_service_name}:{port}"
+            
+            updated_content = re.sub(service_pattern, replace_service_ref, nginx_content)
+            
+            # Save updated nginx config as a ConfigMap
+            manifest = {
+                'apiVersion': 'v1',
+                'kind': 'ConfigMap',
+                'metadata': {
+                    'name': f'{self.repo_name}-nginx-config',
+                    'namespace': self.namespace
+                },
+                'data': {
+                    'nginx.conf': updated_content
+                }
+            }
+            
+            manifest_path = os.path.join(k8s_dir, f'{self.repo_name}-nginx-config.yaml')
+            with open(manifest_path, 'w') as f:
+                f.write(json.dumps(manifest, indent=2))
+            print(f"  📄 Generated: {manifest_path} (nginx.conf updated with K8s service names)")
+            
+        except Exception as e:
+            logger.warning(f"Could not process nginx.conf: {e}")
     
     def deploy_to_cluster(self, k8s_dir: str):
         """Deploy manifests to selected Kubernetes cluster"""

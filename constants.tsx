@@ -28,7 +28,9 @@ export const SKILLS: Skill[] = [
       'Config: Networking (IP, DNS, NTP), storage (LVM, ext4/xfs), systemd, kernel tuning',
       'Users: Account mgmt, sudo, SSH keys, Privileged Access Management (PAM) policies',
       'Packages: apt/dnf, repos, security updates',
-      'Security: Firewalls, SELinux/AppArmor, fail2ban, certificates, Lynis',
+      'Security: Firewalls (iptables, nftables, UFW), SELinux/AppArmor, fail2ban, certificates, Lynis',
+      'Networking: TCP/IP stack, routing, VLANs, VPNs, load balancing, network troubleshooting',
+      'Virtualization: KVM, QEMU, libvirt, VM management, hypervisor configuration',
       'Monitoring: top/htop, iostat, logs (journalctl), alerting',
       'Backup: rsync, tar, restic, test restores',
       'Troubleshooting: Boot issues, strace, SMART checks, OOM (Out of Memory) debugging'
