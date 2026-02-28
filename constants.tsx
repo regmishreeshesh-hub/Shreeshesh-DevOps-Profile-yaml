@@ -47,9 +47,12 @@ export const SKILLS: Skill[] = [
       'Ansible playbooks for configuration management',
       'API interactions with Python requests and GraphQL',
       'System health check automation with cron/systemd',
-      'Infrastructure automation with Terraform/Pulumi',
       'CI/CD pipeline automation with GitHub Actions/GitLab CI',
-      'ChatOps integration with Slack/Teams bots'
+      'ChatOps integration with Slack/Teams bots',
+      'Jenkins pipeline design and maintenance for enterprise CI/CD',
+      'Docker multi-stage builds, image optimization, and container security',
+      'Automated testing integration, quality gates, and artifact management',
+      'Deployment strategies: blue/green, canary, rolling updates'
     ]
   },
   {
@@ -66,7 +69,11 @@ export const SKILLS: Skill[] = [
       'Health checks and liveness/readiness probes',
       'Private registry management with Docker Hub/ECR/GitLab',
       'BuildKit for parallel builds and caching',
-      'Docker Swarm for small to medium clusters'
+      'Docker Swarm for small to medium clusters',
+      'Container security best practices and vulnerability scanning',
+      'Kubernetes deployment, scaling, observability, and troubleshooting',
+      'Helm charts, Ingress controllers, and Operators management',
+      'Backup and recovery strategies for Kubernetes workloads (Velero)'
     ]
   },
   {
@@ -120,7 +127,10 @@ export const SKILLS: Skill[] = [
       'Cost optimization & FinOps with CloudWatch/Azure Monitor',
       'Multi-cloud disaster recovery strategies and replication',
       'Serverless architectures with Lambda/Functions',
-      'Cloud security best practices and compliance'
+      'Cloud security best practices and compliance',
+      'Production environment experience with AWS, GCP, Azure',
+      'Terraform IaC: reusable modules, state management, versioning',
+      'Multi-environment workflows and infrastructure deployment'
     ]
   },
   {
@@ -137,7 +147,10 @@ export const SKILLS: Skill[] = [
       'Jaeger and Zipkin for microservices tracing',
       'SLOs, SLAs, and actionable alerting with Alertmanager',
       'Distributed tracing for debugging complex systems',
-      'Error tracking with Sentry and New Relic'
+      'Error tracking with Sentry and New Relic',
+      'Centralized logging: aggregation, retention policies, alert strategies',
+      'Wazuh and SIEM solutions for security monitoring and compliance',
+      'SLI/SLO monitoring, error budgets, and incident reduction strategies'
     ]
   },
   {
@@ -170,7 +183,14 @@ export const SKILLS: Skill[] = [
       'OPA/Gatekeeper, Kyverno for policy enforcement',
       'Container hardening and least privilege',
       'Compliance as Code with CIS benchmarks',
-      'Incident response and forensics'
+      'Incident response and forensics',
+      'Zero Trust architecture: identity-first access, continuous verification',
+      'Secrets Management: Vault, AWS KMS, Azure Key Vault, GCP KMS',
+      'SSL/TLS, certificate management, mTLS, secure ingress/egress policies',
+      'IAM/RBAC across cloud and Kubernetes environments',
+      'Container scanning: Trivy, Aqua, Snyk, Grype in CI/CD pipelines',
+      'Policy enforcement: OPA/Gatekeeper, Kyverno for cluster security',
+      'Security analysis: SonarQube, OWASP ZAP, Nmap, Burp Suite integration'
     ]
   }
 ];

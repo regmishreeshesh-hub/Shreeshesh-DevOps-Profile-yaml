@@ -1,8 +1,9 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import SkillCard from './components/SkillCard';
 import ProjectCard from './components/ProjectCard';
 import ThemeToggle from './components/ThemeToggle';
+import SearchBar from './components/SearchBar';
 import { SKILLS, PROJECTS, SOCIAL_LINKS, RESUME_LINKS } from './constants';
 
 const App: React.FC = () => {
@@ -11,6 +12,7 @@ const App: React.FC = () => {
   const [highlightStatus, setHighlightStatus] = useState(false);
   const [highlightContact, setHighlightContact] = useState(false);
   const [highlightRole, setHighlightRole] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const statusRef = useRef<HTMLSpanElement>(null);
   const deployStatusRef = useRef<HTMLSpanElement>(null);
   const buildLogsRef = useRef<HTMLSpanElement>(null);
@@ -73,15 +75,43 @@ const App: React.FC = () => {
     }, 5000);
   };
 
+  // Filter skills based on search query
+  const filteredSkills = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return SKILLS;
+    }
+
+    const query = searchQuery.toLowerCase();
+    return SKILLS.filter(skill => {
+      // Search in title, description, and items
+      const titleMatch = skill.title.toLowerCase().includes(query);
+      const descriptionMatch = skill.description.toLowerCase().includes(query);
+      const itemsMatch = skill.items.some(item => 
+        item.toLowerCase().includes(query)
+      );
+      
+      return titleMatch || descriptionMatch || itemsMatch;
+    });
+  }, [searchQuery]);
+
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden text-gray-900 dark:text-white selection:bg-orange-500/30 font-sans transition-colors duration-300">
+    <div className="relative min-h-screen w-full overflow-x-hidden font-sans transition-colors duration-300" style={{ 
+      backgroundColor: 'var(--theme-background)',
+      color: 'var(--theme-text)'
+    }}>
       {/* Background Layers */}
-      <div className="fixed inset-0 bg-gray-50 dark:bg-[#060918] -z-20 transition-colors duration-300" />
+      <div className="fixed inset-0 transition-colors duration-300" style={{ 
+        backgroundColor: 'var(--theme-background)'
+      }} />
       
       {/* Atmospheric Glows */}
       <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-5%] w-[60vw] h-[60vw] bg-blue-200/30 dark:bg-blue-900/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-orange-200/30 dark:bg-orange-900/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-5%] w-[60vw] h-[60vw] rounded-full blur-[120px]" style={{ 
+          background: 'var(--theme-gradient1)' 
+        }} />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] rounded-full blur-[120px]" style={{ 
+          background: 'var(--theme-gradient2)' 
+        }} />
       </div>
 
       {/* Theme Toggle Button - Fixed Position */}
@@ -119,13 +149,20 @@ const App: React.FC = () => {
         {/* Header Section */}
         <header className="text-center mb-16 md:mb-24 animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <div className="inline-block relative">
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-4 custom-glow drop-shadow-[0_0_10px_rgba(249,115,22,0.5)] uppercase text-gray-900 dark:text-white">
-              Shreeshesh <span className="text-orange-500">Regmi</span>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-4 uppercase" style={{ 
+              color: 'var(--theme-text)',
+              filter: 'var(--theme-glow) drop-shadow(0 0 10px var(--theme-accent))'
+            }}>
+              Shreeshesh <span style={{ color: 'var(--theme-accent)' }}>Regmi</span>
             </h1>
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 dark:via-white/20 to-transparent" />
+            <div className="h-px w-full" style={{ 
+              background: 'linear-gradient(to right, transparent, var(--theme-border), transparent)' 
+            }} />
           </div>
           
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-10 font-mono-code text-sm md:text-base tracking-[0.2em] text-gray-600 dark:text-white/70">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-10 font-mono-code text-sm md:text-base tracking-[0.2em]" style={{ 
+              color: 'var(--theme-textSecondary)'
+            }}>
             <span 
               ref={statusRef}
               className={`flex items-center gap-3 transition-all duration-500 ${
@@ -168,25 +205,67 @@ const App: React.FC = () => {
           >
             <a 
               href="mailto:shreeshesh.regmi@gmail.com" 
-              className="flex items-center gap-4 px-8 py-4 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-orange-500/50 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group text-lg md:text-xl font-semibold text-gray-900 dark:text-white"
+              className="flex items-center gap-4 px-8 py-4 rounded-xl transition-all duration-300 group text-lg md:text-xl font-semibold hover:scale-105 relative overflow-hidden" 
+              style={{
+                backgroundColor: 'var(--theme-card)',
+                border: '1px solid var(--theme-border)',
+                color: 'var(--theme-text)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--theme-accent)';
+                e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--theme-border)';
+                e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             >
-              <span className="text-orange-400 group-hover:rotate-12 transition-transform text-2xl drop-shadow-[0_0_8px_rgba(251,146,60,0.5)]">
+              <span className="relative z-10 group-hover:rotate-12 transition-transform duration-300 text-2xl" style={{ 
+                color: 'var(--theme-accent)',
+                filter: 'drop-shadow(0 0 8px var(--theme-glow))'
+              }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </span>
-              shreeshesh.regmi@gmail.com
+              <span className="relative z-10">shreeshesh.regmi@gmail.com</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             </a>
             <a 
               href="tel:+9779704556365" 
-              className="flex items-center gap-4 px-8 py-4 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group text-lg md:text-xl font-semibold text-gray-900 dark:text-white"
+              className="flex items-center gap-4 px-8 py-4 rounded-xl transition-all duration-300 group text-lg md:text-xl font-semibold hover:scale-105 relative overflow-hidden" 
+              style={{
+                backgroundColor: 'var(--theme-card)',
+                border: '1px solid var(--theme-border)',
+                color: 'var(--theme-text)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--theme-accentSecondary)';
+                e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--theme-border)';
+                e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             >
-              <span className="text-blue-400 group-hover:scale-110 transition-transform text-2xl">
+              <span className="relative z-10 group-hover:scale-110 transition-transform duration-300 text-2xl" style={{ 
+                color: 'var(--theme-accentSecondary)',
+                filter: 'drop-shadow(0 0 8px var(--theme-glow))'
+              }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </span>
-              +977 9704556365
+              <span className="relative z-10">+977 9704556365</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
             </a>
           </div>
 
@@ -205,13 +284,34 @@ const App: React.FC = () => {
                  href={social.url}
                  target="_blank"
                  rel="noopener noreferrer"
-                 className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group text-sm font-medium text-gray-900 dark:text-white"
+                 className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 group text-sm font-medium relative overflow-hidden hover:scale-105" 
+                 style={{
+                   backgroundColor: 'var(--theme-card)',
+                   border: '1px solid var(--theme-border)',
+                   color: 'var(--theme-text)'
+                 }}
+                 onMouseEnter={(e) => {
+                   e.currentTarget.style.borderColor = 'var(--theme-accent)';
+                   e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                   e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                   e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+                 }}
+                 onMouseLeave={(e) => {
+                   e.currentTarget.style.borderColor = 'var(--theme-border)';
+                   e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                   e.currentTarget.style.boxShadow = 'none';
+                 }}
                >
                  <span 
-                   className={`text-2xl transition-transform group-hover:scale-110 group-hover:rotate-5`}
+                   className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5"
+                   style={{ 
+                     color: social.name === 'LinkedIn' ? '#0A66C2' : 'var(--theme-accent)'
+                   }}
                    dangerouslySetInnerHTML={{ __html: social.icon }}
                  />
-                 <span className="uppercase tracking-wide">{social.name}</span>
+                 <span className="relative z-10 uppercase tracking-wide">{social.name}</span>
+                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                </a>
              ))}
            </div>
@@ -229,27 +329,69 @@ const App: React.FC = () => {
                href="https://docs.google.com/document/d/1toJdmql6JRBV0Gj80xhro4LOf-gUGLtl/edit?usp=drive_link&ouid=107834041569382404825&rtpof=true&sd=true"
                target="_blank"
                rel="noopener noreferrer"
-               className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group text-sm font-medium text-gray-900 dark:text-white"
+               className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 group text-sm font-medium relative overflow-hidden hover:scale-105" 
+               style={{
+                 backgroundColor: 'var(--theme-card)',
+                 border: '1px solid var(--theme-border)',
+                 color: 'var(--theme-text)'
+               }}
+               onMouseEnter={(e) => {
+                 e.currentTarget.style.borderColor = '#22c55e';
+                 e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                 e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                 e.currentTarget.style.boxShadow = '0 8px 20px rgba(34,197,94,0.2)';
+               }}
+               onMouseLeave={(e) => {
+                 e.currentTarget.style.borderColor = 'var(--theme-border)';
+                 e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                 e.currentTarget.style.boxShadow = 'none';
+               }}
              >
-               <span className={`text-2xl transition-transform group-hover:scale-110 group-hover:rotate-5 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)] text-green-400`}>
+               <span className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5" style={{ 
+                 color: '#22c55e',
+                 filter: 'drop-shadow(0 0 8px rgba(34,197,94,0.5))'
+               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </span>
-                 <span className="uppercase tracking-wide">Resume (DOCX)</span>
+                 <span className="relative z-10 uppercase tracking-wide">Resume (DOCX)</span>
+                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                </a>
              <a
                href="https://drive.google.com/file/d/14KuBd5zaL_I9JNKhd1sSDx5sSrBXeKX0/view?usp=drive_link"
                target="_blank"
                rel="noopener noreferrer"
-               className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:bg-gray-200 dark:hover:bg-white/10 transition-all duration-300 group text-sm font-medium text-gray-900 dark:text-white"
+               className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 group text-sm font-medium relative overflow-hidden hover:scale-105" 
+               style={{
+                 backgroundColor: 'var(--theme-card)',
+                 border: '1px solid var(--theme-border)',
+                 color: 'var(--theme-text)'
+               }}
+               onMouseEnter={(e) => {
+                 e.currentTarget.style.borderColor = '#22c55e';
+                 e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                 e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                 e.currentTarget.style.boxShadow = '0 8px 20px rgba(34,197,94,0.2)';
+               }}
+               onMouseLeave={(e) => {
+                 e.currentTarget.style.borderColor = 'var(--theme-border)';
+                 e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                 e.currentTarget.style.boxShadow = 'none';
+               }}
              >
-               <span className={`text-2xl transition-transform group-hover:scale-110 group-hover:rotate-5 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)] text-green-400`}>
+               <span className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5" style={{ 
+                 color: '#22c55e',
+                 filter: 'drop-shadow(0 0 8px rgba(34,197,94,0.5))'
+               }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </span>
-                 <span className="uppercase tracking-wide">Resume (PDF)</span>
+                 <span className="relative z-10 uppercase tracking-wide">Resume (PDF)</span>
+                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                </a>
            </div>
         </header>
@@ -259,23 +401,44 @@ const App: React.FC = () => {
         {/* 3x3 MATRIX GRID */}
         <div className="relative mb-24">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 uppercase text-gray-900 dark:text-white">
-              Technical <span className="text-orange-500">Skills</span>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 uppercase" style={{ 
+              color: 'var(--theme-text)'
+            }}>
+              Technical <span style={{ color: 'var(--theme-accent)' }}>Skills</span>
             </h2>
-            <div className="h-px w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
-            <p className="mt-4 text-gray-600 dark:text-white/60 text-sm md:text-base max-w-2xl mx-auto">
+            <div className="h-px w-32 md:w-48 mx-auto" style={{ 
+              background: 'linear-gradient(to right, transparent, var(--theme-accent), transparent)' 
+            }} />
+            <p className="mt-4 text-sm md:text-base max-w-2xl mx-auto" style={{ 
+              color: 'var(--theme-textSecondary)'
+            }}>
               My expertise in modern DevOps technologies and practices
             </p>
           </div>
 
+          {/* Search Bar */}
+          <SearchBar onSearch={setSearchQuery} />
+
+          {/* Search Results Count */}
+          {searchQuery && (
+            <div className="text-center mb-8">
+              <p className="text-sm font-mono-code" style={{ 
+                color: 'var(--theme-textSecondary)'
+              }}>
+                Found <span style={{ color: 'var(--theme-accent)' }} className="font-bold">{filteredSkills.length}</span> skill{filteredSkills.length !== 1 ? 's' : ''} matching "{searchQuery}"
+              </p>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-4 lg:gap-6">
-            {SKILLS.map((skill, index) => (
+            {filteredSkills.map((skill, index) => (
               <SkillCard
                 key={skill.id}
                 skill={skill}
                 index={index}
                 isExpanded={expandedId === skill.id}
                 onClick={() => handleCardClick(skill.id)}
+                searchQuery={searchQuery}
               />
             ))}
           </div>

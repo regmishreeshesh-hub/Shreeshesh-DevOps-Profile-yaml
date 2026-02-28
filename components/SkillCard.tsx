@@ -6,13 +6,32 @@ interface SkillCardProps {
   isExpanded: boolean;
   onClick: () => void;
   index: number;
+  searchQuery?: string;
 }
 
-const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index }) => {
+const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index, searchQuery = '' }) => {
   // Format the index as a matrix coordinate (e.g., [0,1])
   const row = Math.floor(index / 3);
   const col = index % 3;
   const coord = `[${row},${col}]`;
+
+  // Highlight matching text
+  const highlightText = (text: string) => {
+    if (!searchQuery.trim()) return text;
+    
+    const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const parts = text.split(regex);
+    
+    return parts.map((part, i) => 
+      regex.test(part) ? (
+        <span key={i} className="bg-orange-400/30 text-orange-600 dark:text-orange-400 px-1 rounded">
+          {part}
+        </span>
+      ) : (
+        <span key={i}>{part}</span>
+      )
+    );
+  };
 
   // Color mappings based on coordinate
   const colorMap: Record<string, string> = {
@@ -78,7 +97,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
               <span dangerouslySetInnerHTML={{ __html: skill.icon }}></span>
             </div>
             <h3 className="text-lg font-black tracking-widest uppercase text-gray-900 dark:text-white group-hover:text-orange-400 transition-colors">
-              {skill.title}
+              {highlightText(skill.title)}
             </h3>
             <div className="mt-4 w-8 h-1 bg-gray-300 dark:bg-white/10 group-hover:w-16 group-hover:bg-orange-500/50 transition-all duration-500 rounded-full" />
           </div>
@@ -145,7 +164,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
                   <div key={idx} className="flex gap-4 group/line">
                     <span className="yaml-punct shrink-0 text-orange-500">-</span>
                     <span className="text-gray-700 dark:text-white/90 group-hover/line:text-gray-900 dark:group-hover/line:text-white transition-colors">
-                      {item}
+                      {highlightText(item)}
                     </span>
                   </div>
                 ))}
