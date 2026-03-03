@@ -9,6 +9,68 @@
 3. Run the app:
    `npm run dev`
 
+## Deploy with Docker Compose
+
+**Prerequisites:**
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Quick Start
+
+1. **Build and run the application:**
+   ```bash
+   docker compose up -d --build
+   ```
+
+2. **Access the application:**
+   - Main app: http://localhost:3000
+   - With nginx proxy (optional): http://localhost:8080
+
+3. **Stop the application:**
+   ```bash
+   docker compose down
+   ```
+
+### Advanced Options
+
+**Run with nginx reverse proxy:**
+```bash
+docker compose --profile with-proxy up -d --build
+```
+
+**View logs:**
+```bash
+docker compose logs -f portfolio
+```
+
+**Rebuild without cache:**
+```bash
+docker compose build --no-cache
+docker compose up -d
+```
+
+**Clean up completely (removes volumes):**
+```bash
+docker compose down -v
+```
+
+### Environment Variables
+
+The Docker Compose setup uses production configuration by default. To customize:
+
+1. Create a `.env` file:
+   ```bash
+   echo "NODE_ENV=production" > .env
+   ```
+
+2. Add your environment variables to the `.env` file
+
+3. Restart the services:
+   ```bash
+   docker compose down
+   docker compose up -d
+   ```
+
 ## Deploy Locally to Kubernetes (Kind)
 
 **Prerequisites:**
