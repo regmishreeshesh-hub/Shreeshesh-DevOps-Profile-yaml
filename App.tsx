@@ -153,7 +153,7 @@ const App: React.FC = () => {
               color: 'var(--theme-text)',
               filter: 'var(--theme-glow) drop-shadow(0 0 10px var(--theme-accent))'
             }}>
-              Shreeshesh <span style={{ color: 'var(--theme-accent)' }}>Regmi</span>
+              <span style={{ color: 'var(--theme-nameHighlight)' }}>Shreeshesh</span> <span style={{ color: 'var(--theme-accent)' }}>Regmi</span>
             </h1>
             <div className="h-px w-full" style={{ 
               background: 'linear-gradient(to right, transparent, var(--theme-border), transparent)' 
@@ -278,42 +278,49 @@ const App: React.FC = () => {
                 : ''
             }`}
           >
-             {SOCIAL_LINKS.map((social, index) => (
-               <a
-                 key={index}
-                 href={social.url}
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 group text-sm font-medium relative overflow-hidden hover:scale-105" 
-                 style={{
-                   backgroundColor: 'var(--theme-card)',
-                   border: '1px solid var(--theme-border)',
-                   color: 'var(--theme-text)'
-                 }}
-                 onMouseEnter={(e) => {
-                   e.currentTarget.style.borderColor = 'var(--theme-accent)';
-                   e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
-                   e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
-                   e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
-                 }}
-                 onMouseLeave={(e) => {
-                   e.currentTarget.style.borderColor = 'var(--theme-border)';
-                   e.currentTarget.style.backgroundColor = 'var(--theme-card)';
-                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                   e.currentTarget.style.boxShadow = 'none';
-                 }}
-               >
-                 <span 
-                   className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5"
-                   style={{ 
-                     color: social.name === 'LinkedIn' ? '#0A66C2' : 'var(--theme-accent)'
+             {SOCIAL_LINKS.map((social, index) => {
+               // invert the accent colour for LinkedIn so hover effects stay blue
+               const accentColor = social.name === 'LinkedIn' ? '#0A66C2' : 'var(--theme-accent)';
+
+               return (
+                 <a
+                   key={index}
+                   href={social.url}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 group text-sm font-medium relative overflow-hidden hover:scale-105" 
+                   style={{
+                     backgroundColor: 'var(--theme-card)',
+                     border: '1px solid var(--theme-border)',
+                     color: 'var(--theme-text)'
                    }}
-                   dangerouslySetInnerHTML={{ __html: social.icon }}
-                 />
-                 <span className="relative z-10 uppercase tracking-wide">{social.name}</span>
-                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
-               </a>
-             ))}
+                   onMouseEnter={(e) => {
+                     e.currentTarget.style.borderColor = accentColor;
+                     e.currentTarget.style.color = accentColor;
+                     e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
+                     e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                     e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+                   }}
+                   onMouseLeave={(e) => {
+                     e.currentTarget.style.borderColor = 'var(--theme-border)';
+                     e.currentTarget.style.color = 'var(--theme-text)';
+                     e.currentTarget.style.backgroundColor = 'var(--theme-card)';
+                     e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                     e.currentTarget.style.boxShadow = 'none';
+                   }}
+                 >
+                   <span 
+                     className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5"
+                     style={{ 
+                       color: accentColor
+                     }}
+                     dangerouslySetInnerHTML={{ __html: social.icon }}
+                   />
+                   <span className="relative z-10 uppercase tracking-wide">{social.name}</span>
+                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
+                 </a>
+               );
+             })}
            </div>
 
            {/* Resume Links */}
@@ -404,7 +411,7 @@ const App: React.FC = () => {
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 uppercase" style={{ 
               color: 'var(--theme-text)'
             }}>
-              Technical <span style={{ color: 'var(--theme-accent)' }}>Skills</span>
+              <span style={{ color: 'var(--theme-nameHighlight)' }}>Technical</span> <span style={{ color: 'var(--theme-accent)' }}>Skills</span>
             </h2>
             <div className="h-px w-32 md:w-48 mx-auto" style={{ 
               background: 'linear-gradient(to right, transparent, var(--theme-accent), transparent)' 
@@ -481,7 +488,7 @@ const App: React.FC = () => {
             </span>
           </div>
           <div className="drop-shadow-[0_0_12px_rgba(251,146,60,0.8)] text-orange-400">
-            © {new Date().getFullYear()} Shreeshesh Regmi • Built for Modern DevOps Landscapes
+            © {new Date().getFullYear()} <span style={{ color: 'var(--theme-nameHighlight)' }}>Shreeshesh</span> Regmi • Built for Modern DevOps Landscapes
           </div>
         </footer>
       </div>

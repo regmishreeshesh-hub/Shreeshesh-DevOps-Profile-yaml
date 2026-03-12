@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type ThemeType = 'light' | 'dark';
+export type ThemeType = 'light' | 'dark' | 'beige';
 
 export interface Theme {
   name: string;
@@ -14,6 +14,7 @@ export interface Theme {
     textSecondary: string;
     accent: string;
     accentSecondary: string;
+    nameHighlight: string;
     glow: string;
     gradient1: string;
     gradient2: string;
@@ -33,6 +34,7 @@ const themes: Record<ThemeType, Theme> = {
       textSecondary: '#64748b',
       accent: '#f97316',
       accentSecondary: '#3b82f6',
+      nameHighlight: '#dc2626',
       glow: 'rgba(249, 115, 22, 0.5)',
       gradient1: 'rgba(251, 146, 60, 0.3)',
       gradient2: 'rgba(59, 130, 246, 0.3)',
@@ -50,10 +52,29 @@ const themes: Record<ThemeType, Theme> = {
       textSecondary: 'rgba(255, 255, 255, 0.7)',
       accent: '#f97316',
       accentSecondary: '#3b82f6',
+      nameHighlight: '#ffffff',
       glow: 'rgba(249, 115, 22, 0.5)',
       gradient1: 'rgba(249, 115, 22, 0.15)',
       gradient2: 'rgba(59, 130, 246, 0.15)',
     },
+  },
+  beige: {
+    name: 'Beige',
+    type: 'light',
+    colors: {
+      background: '#f5f5dc',
+      surface: '#ede8dc',
+      card: '#faf0e6',
+      border: '#d2b48c',
+      text: '#3e2723',
+      textSecondary: '#8b7355',
+      accent: '#cd853f',
+      accentSecondary: '#a0522d',
+      nameHighlight: '#8b4513',
+      glow: 'rgba(205, 133, 63, 0.5)',
+      gradient1: 'rgba(245, 245, 220, 0.3)',
+      gradient2: 'rgba(160, 82, 45, 0.3)',
+    }
   }
 };
 
