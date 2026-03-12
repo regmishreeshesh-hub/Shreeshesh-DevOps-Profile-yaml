@@ -488,7 +488,7 @@ const App: React.FC = () => {
             </span>
           </div>
           <div className="drop-shadow-[0_0_12px_rgba(251,146,60,0.8)] text-orange-400">
-            © {new Date().getFullYear()} <span style={{ color: 'var(--theme-nameHighlight)' }}>Shreeshesh</span> Regmi • Built for Modern DevOps Landscapes
+            © {new Date().getFullYear()} Shreeshesh Regmi • Built for Modern DevOps Landscapes
           </div>
         </footer>
       </div>
