@@ -279,8 +279,9 @@ const App: React.FC = () => {
             }`}
           >
              {SOCIAL_LINKS.map((social, index) => {
-               // invert the accent colour for LinkedIn so hover effects stay blue
-               const accentColor = social.name === 'LinkedIn' ? '#0A66C2' : 'var(--theme-accent)';
+               // Set colors: LinkedIn stays blue, GitHub stays white, others use theme accent
+               const accentColor = social.name === 'LinkedIn' ? '#0A66C2' : 
+                                 social.name.includes('GitHub') ? '#ffffff' : 'var(--theme-accent)';
 
                return (
                  <a
