@@ -171,7 +171,7 @@ const App: React.FC = () => {
                   : ''
               }`}
             >
-              <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse"/> STATUS: ONLINE
+              <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse"/> <span className="font-bold">STATUS: ONLINE</span>
             </span>
             <span 
               ref={roleRef}
@@ -184,14 +184,14 @@ const App: React.FC = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                ROLE: DEVOPS ENGINEER
+                <span className="font-bold">ROLE: DEVOPS ENGINEER</span>
               </span>
             <span className="flex items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                LOCATION: Kathmandu, Nepal
+                <span className="font-bold">LOCATION: Kathmandu, Nepal</span>
               </span>
           </div>
           
