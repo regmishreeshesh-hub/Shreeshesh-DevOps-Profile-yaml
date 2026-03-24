@@ -280,8 +280,8 @@ const App: React.FC = () => {
           >
              {SOCIAL_LINKS.map((social, index) => {
                // Set colors: LinkedIn stays blue, GitHub stays white, others use theme accent
-               const accentColor = social.name === 'LinkedIn' ? '#0A66C2' : 
-                                 social.name.includes('GitHub') ? '#ffffff' : 'var(--theme-accent)';
+               const accentColor = social.name === 'LinkedIn' ? '#0A66C2' : 'var(--theme-accent)';
+               const isGitHub = social.name.includes('GitHub');
 
                return (
                  <a
@@ -296,8 +296,8 @@ const App: React.FC = () => {
                      color: 'var(--theme-text)'
                    }}
                    onMouseEnter={(e) => {
-                     e.currentTarget.style.borderColor = accentColor;
-                     e.currentTarget.style.color = accentColor;
+                     e.currentTarget.style.borderColor = isGitHub ? '#ffffff' : accentColor;
+                     e.currentTarget.style.color = isGitHub ? '#ffffff' : accentColor;
                      e.currentTarget.style.backgroundColor = 'var(--theme-surface)';
                      e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
@@ -313,7 +313,7 @@ const App: React.FC = () => {
                    <span 
                      className="relative z-10 text-2xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-5"
                      style={{ 
-                       color: accentColor
+                       color: isGitHub ? '#ffffff' : accentColor
                      }}
                      dangerouslySetInnerHTML={{ __html: social.icon }}
                    />
