@@ -107,6 +107,7 @@ export const SKILLS: Skill[] = [
       'Jenkins Pipeline as Code with Groovy',
       'Tekton pipelines for cloud-native CI/CD',
       'Automated testing (unit, integration, e2e) with Playwright/Cypress',
+      'Pre-commit hooks with Husky for code quality and security checks',
       'Canary deployments with Argo Rollouts',
       'Blue/green deployments and traffic management',
       'Dependency management and vulnerability scanning',
