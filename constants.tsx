@@ -70,10 +70,8 @@ export const SKILLS: Skill[] = [
       'Private registry management with Docker Hub/ECR/GitLab',
       'BuildKit for parallel builds and caching',
       'Docker Swarm for small to medium clusters',
-      'Container security best practices and vulnerability scanning',
-      'Kubernetes deployment, scaling, observability, and troubleshooting',
-      'Helm charts, Ingress controllers, and Operators management',
-      'Backup and recovery strategies for Kubernetes workloads (Velero)'
+      'Container security best practices and vulnerability scanning'
+      
     ]
   },
   {
@@ -92,7 +90,10 @@ export const SKILLS: Skill[] = [
       'Calico/Cilium for advanced network policies',
       'NGINX/Traefik Ingress controllers',
       'HPA/VPA/KEDA for autoscaling',
-      'Cluster upgrades, version skew management, and disaster recovery'
+      'Cluster upgrades, version skew management, and disaster recovery',
+      'Kubernetes deployment, scaling, observability, and troubleshooting',
+      'Helm charts, Ingress controllers, and Operators management',
+      'Backup and recovery strategies for Kubernetes workloads (Velero)'
     ]
   },
   {
