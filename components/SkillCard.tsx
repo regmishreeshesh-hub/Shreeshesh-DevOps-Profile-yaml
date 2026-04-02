@@ -116,6 +116,19 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
         >
           {/* Dark Backdrop */}
           <div className="absolute inset-0 bg-gray-100/90 dark:bg-[#060918]/90 backdrop-blur-md" />
+          
+          {/* Logo Background with 25% opacity */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center opacity-25"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(skill.icon.replace(/<svg/g, '<svg xmlns="http://www.w3.org/2000/svg"').replace(/fill="currentColor"/g, 'fill="currentColor"').replace(/class="[^"]*"/g, '')}")})`,
+              backgroundSize: '400px 400px',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="w-96 h-96" dangerouslySetInnerHTML={{ __html: skill.icon }}></div>
+          </div>
 
           {/* Expanded Content Box */}
           <div
