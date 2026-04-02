@@ -111,7 +111,8 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           </div>
 
           {/* Subtle hover background effect */}
-          <div className={`absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-br ${activeGradient} to-transparent transition-all duration-700 transform group-hover:scale-110 opacity-0 group-hover:opacity-30 blur-3xl`}
+          <div
+            className={`absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-br ${activeGradient} to-transparent transition-all duration-700 transform group-hover:scale-110 opacity-0 group-hover:opacity-30 blur-3xl`}
           />
         </div>
       </div>
@@ -124,26 +125,26 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
         >
           {/* Dark Backdrop */}
           <div className="absolute inset-0 bg-gray-100/90 dark:bg-[#060918]/90 backdrop-blur-md" />
-          
-          {/* Logo Background with 25% opacity */}
-          <div 
-            className="absolute inset-0 flex items-center justify-center opacity-25"
-            style={{
-              backgroundImage: `url(${imageSrc})`,
-              backgroundSize: '300px 300px',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              filter: 'grayscale(100%) brightness(0.7)'
-            }}
-          />
 
           {/* Expanded Content Box */}
           <div
             className="relative w-full max-w-4xl max-h-[85vh] bg-white dark:bg-[#0d1117] border border-gray-200 dark:border-white/20 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Logo watermark background (25% opacity) */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-25"
+              style={{
+                backgroundImage: `url(${imageSrc})`,
+                backgroundSize: '420px 420px',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                filter: 'grayscale(100%) brightness(0.75)',
+              }}
+            />
+
             {/* Header / Title Bar */}
-            <div className="flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
+            <div className="relative z-10 flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
               <div className="flex items-center gap-3">
                 <div
                   className={`w-20 h-20 mb-4 flex items-center justify-center text-3xl text-gray-900 dark:text-white`}
@@ -166,7 +167,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
             </div>
 
             {/* Scrollable Content (YAML Style) */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-10 font-mono-code text-sm md:text-base no-scrollbar">
+            <div className="relative z-10 flex-1 overflow-y-auto p-6 md:p-10 font-mono-code text-sm md:text-base no-scrollbar">
               <div className="mb-8">
                 <span className="yaml-key">apiVersion</span><span className="yaml-punct">:</span> <span className="yaml-string">v1</span><br />
                 <span className="yaml-key">kind</span><span className="yaml-punct">:</span> <span className="yaml-string">ConfigMap</span><br />
