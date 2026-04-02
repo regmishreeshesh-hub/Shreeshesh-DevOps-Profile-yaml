@@ -15,6 +15,14 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
   const col = index % 3;
   const coord = `[${row},${col}]`;
 
+  // Extract image src from icon string
+  const getImageSrc = (iconString: string) => {
+    const match = iconString.match(/src="([^"]+)"/);
+    return match ? match[1] : '/linux.png'; // fallback
+  };
+
+  const imageSrc = getImageSrc(skill.icon);
+
   // Highlight matching text
   const highlightText = (text: string) => {
     if (!searchQuery.trim()) return text;
@@ -121,14 +129,13 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, isExpanded, onClick, index
           <div 
             className="absolute inset-0 flex items-center justify-center opacity-25"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent(skill.icon.replace(/<svg/g, '<svg xmlns="http://www.w3.org/2000/svg"').replace(/fill="currentColor"/g, 'fill="currentColor"').replace(/class="[^"]*"/g, '')}")})`,
-              backgroundSize: '400px 400px',
+              backgroundImage: `url(${imageSrc})`,
+              backgroundSize: '300px 300px',
               backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
+              backgroundRepeat: 'no-repeat',
+              filter: 'grayscale(100%) brightness(0.7)'
             }}
-          >
-            <div className="w-96 h-96" dangerouslySetInnerHTML={{ __html: skill.icon }}></div>
-          </div>
+          />
 
           {/* Expanded Content Box */}
           <div
