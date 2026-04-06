@@ -470,20 +470,20 @@ const App: React.FC = () => {
             <span 
               ref={buildLogsRef}
               onClick={handleBuildLogsClick}
-              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer font-bold"
             >
               BUILD_LOGS
             </span>
             <span 
               onClick={handleSystemInfoClick}
-              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer font-bold"
             >
               SYSTEM_INFO
             </span>
             <span 
               ref={deployStatusRef}
               onClick={handleDeployStatusClick}
-              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+              className="hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer font-bold"
             >
               DEPLOY_STATUS
             </span>
