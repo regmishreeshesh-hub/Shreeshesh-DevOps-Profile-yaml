@@ -9,6 +9,50 @@
 3. Run the app:
    `npm run dev`
 
+## GitHub Pages Deployment
+
+**Prerequisites:** Git repository with GitHub Pages enabled
+
+### Quick Deploy
+
+1. **Build the application:**
+   ```bash
+   npm run build
+   ```
+
+2. **Configure GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: `main` (or your deploy branch)
+   - Folder: `/ (root)`
+
+3. **Push to GitHub:**
+   ```bash
+   git add dist/ _config.yml
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+
+4. **Access your site:**
+   - Visit: `https://regmishreeshesh-hub.github.io/Shreeshesh-DevOps-Profile-yaml`
+
+### Site Configuration
+
+The `_config.yml` file contains:
+- **Title**: "Shreeshesh Regmi - DevOps Engineer"
+- **Description**: "DevOps Engineer specializing in cloud infrastructure, automation, and modern deployment strategies"
+- **Theme**: Jekyll minimal theme
+- **SEO**: Optimized meta tags and social media
+
+### Features
+
+- ✅ **No CDN dependencies** - Tailwind CSS properly bundled
+- ✅ **Fast loading** - Optimized build with gzip compression
+- ✅ **Responsive design** - Works on all devices
+- ✅ **SEO friendly** - Proper meta tags and descriptions
+- ✅ **Custom favicon** - Professional branding
+- ✅ **Multiple themes** - Light, Dark, and Beige options
+
 ## Deploy with Docker Compose
 
 **Prerequisites:**

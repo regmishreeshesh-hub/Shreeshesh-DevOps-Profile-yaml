@@ -1,0 +1,64 @@
+# GitHub Pages Configuration
+theme: jekyll-theme-minimal
+title: Shreeshesh Regmi - DevOps Engineer
+description: DevOps Engineer specializing in cloud infrastructure, automation, and modern deployment strategies. Bookmark this to keep an eye on my project updates!
+
+# Site settings
+url: "https://regmishreeshesh-hub.github.io"
+baseurl: "/Shreeshesh-DevOps-Profile-yaml"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO settings
+author: Shreeshesh Regmi
+lang: en
+timezone: Asia/Kathmandu
+
+# Social media
+twitter:
+  username: shreesheshregmi
+  card: summary
+
+github:
+  username: shreesheshregmi
+
+# Exclude files from processing
+exclude:
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - README.md
+  - Dockerfile
+  - docker-compose.yml
+  - nginx.conf
+  - .gitignore
+  - tsconfig.json
+  - vite.config.ts
+  - tailwind.config.js
+  - postcss.config.js
+  - contexts/
+  - components/
+  - constants.tsx
+  - App.tsx
+  - index.tsx
+  - k8s-deploy.py
+  - deploy.sh
+
+# Include files for processing
+include:
+  - _pages
+  - _posts
+  - dist/
+
+# Google Analytics (optional)
+google_analytics: # UA-XXXXXXXX-X
+
+# Disqus comments (optional)
+disqus:
+  shortname: # your-disqus-shortname
