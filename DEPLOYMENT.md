@@ -73,6 +73,45 @@ npm run build
 # The dist/ folder contains all static assets
 ```
 
+### 2.1. GitHub Pages Deployment
+
+**Optimized for GitHub Pages:**
+- ✅ Tailwind CSS properly configured (no CDN dependency)
+- ✅ Relative paths configured (`base: './'`)
+- ✅ Proper MIME types for JavaScript modules
+- ✅ Production-ready build output
+
+**Deployment Steps:**
+
+1. **Build the application:**
+   ```bash
+   npm run build
+   ```
+
+2. **Configure GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: `main` (or your deploy branch)
+   - Folder: `/ (root)`
+
+3. **Push to GitHub:**
+   ```bash
+   git add dist/
+   git commit -m "Add production build"
+   git push origin main
+   ```
+
+4. **Automatic Deployment:**
+   - GitHub Pages will automatically deploy the `dist/` folder
+   - Site will be available at `https://username.github.io/repository-name`
+
+**GitHub Pages Features:**
+- ✅ No CDN warnings (Tailwind CSS properly bundled)
+- ✅ Correct MIME types for JavaScript modules
+- ✅ Fast loading with proper asset optimization
+- ✅ HTTPS automatically enabled
+- ✅ Custom domain support
+
 ### 3. Kubernetes Deployment
 
 ```yaml
